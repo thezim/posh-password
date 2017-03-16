@@ -4,7 +4,9 @@
         [int]$UpperLetter = 2,
         [int]$LowerLetter = 2,
         [int]$Number = 2,
-        [int]$Symbol = 2
+        [int]$Symbol = 2,
+        [ValidateNotNullOrEmpty()]
+        [string]$Exclude
     )
     $minlength = $UpperLetter + $LowerLetter + $Number + $Symbol
     if($Length -lt $minlength){
@@ -16,6 +18,15 @@
     $symbols = ((33..47) | ForEach-Object {[char]$_})
     $symbols += ((58..64) | ForEach-Object {[char]$_})
     $numbers = (48..57) | ForEach-Object {[char]$_}
+    if($Exclude -ne $null){
+        $chars = $Exclude.ToCharArray()
+        foreach($char in $chars){
+            $lowers = $lowers | Where-Object { $_ -ne $char }
+            $uppers = $uppers | Where-Object { $_ -ne $char }
+            $symbols = $symbols | Where-Object { $_ -ne $char }
+            $numbers = $numbers | Where-Object { $_ -ne $char }
+        }
+    }
     $all = $lowers + $uppers + $symbols + $numbers
     $pwd = @()
     if($UpperLetter -ne 0){(Get-Random -Count $UpperLetter -InputObject $uppers) | ForEach-Object {$pwd+=$_}}
