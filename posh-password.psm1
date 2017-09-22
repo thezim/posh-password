@@ -38,7 +38,7 @@
             $numbers = $numbers | Where-Object { $_ -ne $char }
         }
     }
-    $all = $lowers + $uppers + $symbols + $numbers
+    $all = $lowers + $uppers + $symbols + $numbers | Sort-Object { Get-Random }
     $pwd = @()
     if($UpperLetter -ne 0){(Get-Random -Count $UpperLetter -InputObject $uppers) | ForEach-Object {$pwd+=$_}}
     if($LowerLetter -ne 0){(Get-Random -Count $LowerLetter -InputObject $lowers) | ForEach-Object {$pwd+=$_}}
