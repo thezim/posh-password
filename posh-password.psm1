@@ -6,8 +6,10 @@
         [int]$Number = 2,
         [int]$Symbol = 2,
         [ValidateNotNullOrEmpty()]
-        [string]$Exclude
+        [string]$Exclude,
+        [switch]$AvoidAmbiguous
     )
+    $ambiguous = "oOiIlL01"
     $minlength = $UpperLetter + $LowerLetter + $Number + $Symbol
     if($Length -lt $minlength){
         Write-Error -Message "Length too short. Minimum character length is $minlength."
@@ -18,6 +20,15 @@
     $symbols = ((33..47) | ForEach-Object {[char]$_})
     $symbols += ((58..64) | ForEach-Object {[char]$_})
     $numbers = (48..57) | ForEach-Object {[char]$_}
+    if($AvoidAmbiguous){
+        $chars = $ambiguous.ToCharArray()
+        foreach($char in $chars){
+            $lowers = $lowers | Where-Object { $_ -ne $char }
+            $uppers = $uppers | Where-Object { $_ -ne $char }
+            $symbols = $symbols | Where-Object { $_ -ne $char }
+            $numbers = $numbers | Where-Object { $_ -ne $char }
+        }
+    }
     if($Exclude -ne $null){
         $chars = $Exclude.ToCharArray()
         foreach($char in $chars){
