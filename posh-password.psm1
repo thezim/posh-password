@@ -33,10 +33,10 @@
     }
     $all = $lowers + $uppers + $symbols + $numbers | Sort-Object { Get-Random }
     $pwd = @()
-    if($UpperLetter -ne 0){(Get-Random -Count $UpperLetter -InputObject $uppers) | ForEach-Object {$pwd+=$_}}
-    if($LowerLetter -ne 0){(Get-Random -Count $LowerLetter -InputObject $lowers) | ForEach-Object {$pwd+=$_}}
-    if($Symbol -ne 0){(Get-Random -Count $Symbol -InputObject $symbols) | ForEach-Object {$pwd+=$_}}
-    if($Number -ne 0){(Get-Random -Count $Number -InputObject $numbers) | ForEach-Object {$pwd+=$_}}
+    if($UpperLetter -ne 0){(Get-Random -Count $UpperLetter -InputObject $uppers) | ForEach-Object { $pwd += $_ }}
+    if($LowerLetter -ne 0){(Get-Random -Count $LowerLetter -InputObject $lowers) | ForEach-Object { $pwd += $_ }}
+    if($Symbol -ne 0){(Get-Random -Count $Symbol -InputObject $symbols) | ForEach-Object { $pwd+= $_ }}
+    if($Number -ne 0){(Get-Random -Count $Number -InputObject $numbers) | ForEach-Object { $pwd+= $_ }}
     if($pwd.Count -lt $Length){
         $pwd += (Get-Random -Count ($Length - $pwd.Count) -InputObject $all)
     }
