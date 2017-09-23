@@ -9,6 +9,7 @@
         [ValidateNotNullOrEmpty()]
         [string]$Exclude,
         [switch]$AvoidAmbiguous,
+        [ValidateNotNullOrEmpty()]
         [string]$AmbiguousCharacters = "oOiIlL01"
     )
     $minlength = $UpperLetter + $LowerLetter + $Number + $Symbol
