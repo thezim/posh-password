@@ -20,18 +20,11 @@
     $symbols = ((33..47) | ForEach-Object {[char]$_})
     $symbols += ((58..64) | ForEach-Object {[char]$_})
     $numbers = (48..57) | ForEach-Object {[char]$_}
-    if($AvoidAmbiguous){
-        $chars = $ambiguous.ToCharArray()
-        foreach($char in $chars){
-            $lowers = $lowers | Where-Object { $_ -ne $char }
-            $uppers = $uppers | Where-Object { $_ -ne $char }
-            $symbols = $symbols | Where-Object { $_ -ne $char }
-            $numbers = $numbers | Where-Object { $_ -ne $char }
-        }
-    }
-    if($Exclude -ne $null){
-        $chars = $Exclude.ToCharArray()
-        foreach($char in $chars){
+    $removechars = @()
+    if($AvoidAmbiguous){ $removechars += $ambiguous.ToCharArray() }
+    if($Exclude -ne $null){ $removechars += $Exclude.ToCharArray() }
+    if($removechars.Count -ne 0){
+        foreach($char in $removechars){
             $lowers = $lowers | Where-Object { $_ -ne $char }
             $uppers = $uppers | Where-Object { $_ -ne $char }
             $symbols = $symbols | Where-Object { $_ -ne $char }
