@@ -1,4 +1,5 @@
 ﻿function New-Password {
+    [CmdletBinding()]
     param(
         [int]$Length = 16,
         [int]$UpperLetter = 2,
