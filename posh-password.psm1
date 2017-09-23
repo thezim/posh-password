@@ -1,18 +1,18 @@
 ﻿function New-Password {
     [CmdletBinding()]
     param(
-        [int]$Length = 16,
-        [int]$UpperLetter = 2,
-        [int]$LowerLetter = 2,
-        [int]$Number = 2,
-        [int]$Symbol = 2,
+        [int]$Length = 12,
+        [int]$Upper = 1,
+        [int]$Lower = 1,
+        [int]$Number = 1,
+        [int]$Symbol = 1,
         [ValidateNotNullOrEmpty()]
         [string]$Exclude,
         [switch]$AvoidAmbiguous,
         [ValidateNotNullOrEmpty()]
         [string]$AmbiguousCharacters = "oOiIlL01"
     )
-    $minlength = $UpperLetter + $LowerLetter + $Number + $Symbol
+    $minlength = $Upper + $Lower + $Number + $Symbol
     if($Length -lt $minlength){
         Write-Error -Message "Length too short. Minimum character length is $minlength."
         return
@@ -35,8 +35,8 @@
     }
     $all = $lowers + $uppers + $symbols + $numbers | Sort-Object { Get-Random }
     $pwd = @()
-    if($UpperLetter -ne 0){(Get-Random -Count $UpperLetter -InputObject $uppers) | ForEach-Object { $pwd += $_ }}
-    if($LowerLetter -ne 0){(Get-Random -Count $LowerLetter -InputObject $lowers) | ForEach-Object { $pwd += $_ }}
+    if($Upper -ne 0){(Get-Random -Count $Upper -InputObject $uppers) | ForEach-Object { $pwd += $_ }}
+    if($Lower -ne 0){(Get-Random -Count $Lower -InputObject $lowers) | ForEach-Object { $pwd += $_ }}
     if($Symbol -ne 0){(Get-Random -Count $Symbol -InputObject $symbols) | ForEach-Object { $pwd+= $_ }}
     if($Number -ne 0){(Get-Random -Count $Number -InputObject $numbers) | ForEach-Object { $pwd+= $_ }}
     if($pwd.Count -lt $Length){
