@@ -7,10 +7,7 @@
         [int]$Number = 1,
         [int]$Symbol = 1,
         [ValidateNotNullOrEmpty()]
-        [string]$Exclude,
-        [switch]$AvoidAmbiguous,
-        [ValidateNotNullOrEmpty()]
-        [string]$AmbiguousCharacters = "oOiIlL01"
+        [string]$Exclude
     )
     $minlength = $Upper + $Lower + $Number + $Symbol
     if($Length -lt $minlength){
@@ -25,7 +22,6 @@
     $symbols += ((123..126) | ForEach-Object {[char]$_})
     $numbers = (48..57) | ForEach-Object {[char]$_}
     $removechars = @()
-    if($AvoidAmbiguous){ $removechars += $AmbiguousCharacters.ToCharArray() }
     if($Exclude -ne $null){ $removechars += $Exclude.ToCharArray() }
     if($removechars.Count -ne 0){
         foreach($char in $removechars){
