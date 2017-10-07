@@ -21,6 +21,8 @@
     $uppers = (65..90) | ForEach-Object {[char]$_}
     $symbols = ((33..47) | ForEach-Object {[char]$_})
     $symbols += ((58..64) | ForEach-Object {[char]$_})
+    $symbols += ((91..96) | ForEach-Object {[char]$_})
+    $symbols += ((123..126) | ForEach-Object {[char]$_})
     $numbers = (48..57) | ForEach-Object {[char]$_}
     $removechars = @()
     if($AvoidAmbiguous){ $removechars += $AmbiguousCharacters.ToCharArray() }
